@@ -8,6 +8,8 @@ function App() {
     date: " "
 });
 
+const [transactions, setTransactions] = useState([]);
+
 useEffect(() => {
   fetchTransactions();
 }, []);
@@ -15,13 +17,12 @@ useEffect(() => {
 async function fetchTransactions() {
   const res = await fetch('http://localhost:4000/transaction') //fetching data from db. no method == get
   const {data} = await res.json();
-  console.log(data)
+  setTransactions(data);
 }
 
 function handleInput(e) {  
   setForm({...form, [e.target.name]: e.target.value});
 }
-
 
 async function handleSubmit(e) {
   e.preventDefault();
@@ -32,10 +33,11 @@ async function handleSubmit(e) {
       'content-type': 'application/json',
     }
   })
-  const data = await res.json();
-  console.log(data)
+  if(res.ok) {
+    fetchTransactions();
+  }
+ 
 }
-
 
   return (
     <div>
@@ -77,11 +79,13 @@ async function handleSubmit(e) {
             <th>Date</th>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>abcdefgh</td>
-              <td>ijklman</td>
-            </tr>
+            {transactions.map((trx) => (
+              <tr key={trx._id}>
+                <td>{trx.amount}</td>
+                <td>{trx.description}</td>
+                <td>{trx.date}</td>
+              </tr>
+            ))}            
           </tbody>
         </table>
       </section>
