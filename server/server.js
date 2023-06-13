@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const Transaction = require('./models/transaction');
 
 const PORT = 4000;
 const app = express();
@@ -24,9 +25,15 @@ app.get('/',(req, res)=>{
 });
 
     //post request
-app.post('/transaction',(req, res)=>{
+app.post('/transaction',async (req, res)=>{
     const {amount, description, date} = req.body;
-    res.json({message: "Hello World"});
+    const transaction = new Transaction({
+        amount,
+        description,
+        date   //since the key and variable is same no need to repeat like amount:amount...
+    });
+    await transaction.save(); //save to db
+    res.json({message: "Success"});
 });
 
 app.listen(PORT, ()=>{
