@@ -6,12 +6,13 @@ const app = express();
 
 // connect to mongodb
 const mongodbURL = 
-"mongodb+srv://ishini:ishini99@expense.x76dkjf.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://ishini:ishini99@expense.x76dkjf.mongodb.net/?retryWrites=true&w=majority"
+
 mongoose.connect(
     mongodbURL
 )
-.then(()=> console.log("Mongodb connected successfully"))
-.catch(err => console.log(err));
+console.log("Mongodb connected successfully")
+
 
 app.get('/',(req, res)=>{
     res.send("Hello World");
