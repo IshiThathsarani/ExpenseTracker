@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import AppBar from './components/AppBar';
+import TransactionForm from './components/TransactionForm';
 
 const InitialForm = {
   amount: 0,
@@ -46,6 +47,9 @@ async function handleSubmit(e) {
   return (
     <div>
       <AppBar />
+
+      <TransactionForm />
+
       <form onSubmit={handleSubmit}>
         <input 
           type="number" 
