@@ -24,7 +24,7 @@ app.get('/',(req, res)=>{
     res.send("Hello World");
 });
 app.get('/transaction', async (req, res)=>{
-    const transaction = await Transaction.find({}).sort({createdAt: -1});
+    const transaction = await Transaction.find({}).sort({createdAt: -1}); //sort to new to old
     res.json({data: transaction});
 });
 
