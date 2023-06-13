@@ -1,9 +1,11 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const connect = require('./database/mongodb'); //mongodb
+
 const TransactionsAPI = require('./routes/TransactionsAPI');
+
 
 const PORT = 4000;
 const app = express();
@@ -12,15 +14,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/transaction', TransactionsAPI);
+connect() // connect to mongodb
 
-// connect to mongodb
-const mongodbURL = 
-    "mongodb+srv://ishini:ishini99@expense.x76dkjf.mongodb.net/?retryWrites=true&w=majority"
-
-mongoose.connect(
-    mongodbURL
-)
-console.log("Mongodb connected successfully")
 
     //get request
 app.get('/',(req, res)=>{
