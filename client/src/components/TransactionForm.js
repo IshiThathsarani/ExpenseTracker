@@ -7,7 +7,11 @@ export default function TransactionForm() {
   return (
     <Card sx={{ minWidth: 275, marginTop: 10 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography 
+            sx={{ fontSize: 14 }} 
+            color="text.secondary" 
+            gutterBottom
+        >
           Word of the Day
         </Typography>
         <Typography variant="body2">
