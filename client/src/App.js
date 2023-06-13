@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
@@ -8,6 +8,16 @@ function App() {
     date: " "
 });
 
+useEffect(() => {
+  fetchTransactions();
+}, []);
+
+async function fetchTransactions() {
+  const res = await fetch('http://localhost:4000/transaction') //fetching data from db. no method == get
+  const {data} = await res.json();
+  console.log(data)
+}
+
 function handleInput(e) {  
   setForm({...form, [e.target.name]: e.target.value});
 }
@@ -15,7 +25,7 @@ function handleInput(e) {
 
 async function handleSubmit(e) {
   e.preventDefault();
-  const res = await fetch('http://localhost:4000/transaction',{
+  const res = await fetch('http://localhost:4000/transaction',{ //creating a new transaction
     method: 'POST',
     body: JSON.stringify(form),
     headers: {

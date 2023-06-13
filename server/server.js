@@ -23,6 +23,10 @@ console.log("Mongodb connected successfully")
 app.get('/',(req, res)=>{
     res.send("Hello World");
 });
+app.get('/transaction', async (req, res)=>{
+    const transaction = await Transaction.find({})
+    res.json({data: transaction});
+});
 
     //post request
 app.post('/transaction',async (req, res)=>{
