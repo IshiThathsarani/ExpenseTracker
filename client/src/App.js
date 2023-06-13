@@ -56,6 +56,25 @@ async function handleSubmit(e) {
           Submit
         </button>
       </form>
+
+      <br />
+
+      <section>
+        <table>
+          <thead>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>abcdefgh</td>
+              <td>ijklman</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 }
