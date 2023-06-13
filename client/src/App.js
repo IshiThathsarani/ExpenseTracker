@@ -13,9 +13,17 @@ function handleInput(e) {
 }
 
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  console.log(form)
+  const res = await fetch('http://localhost:4000/transaction',{
+    method: 'POST',
+    body: JSON.stringify(form),
+    headers: {
+      'content-type': 'application/json',
+    }
+  })
+  const data = await res.json();
+  console.log(data)
 }
 
 
