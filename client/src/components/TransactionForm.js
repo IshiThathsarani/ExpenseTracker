@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -17,8 +17,16 @@ const InitialForm = {
   date: " "
 }
 
-export default function TransactionForm( { fetchTransactions }) {
+export default function TransactionForm( { fetchTransactions, editTransaction }) { //passing edited data to transactionForm
   const [form, setForm] = useState(InitialForm);
+
+  useEffect(() => {
+    if(editTransaction !== {}) {
+      setForm(editTransaction);
+    }
+    
+    console.log(editTransaction);
+  }, [editTransaction]);
   
   function handleChange(e) {
     setForm({...form, [e.target.name]: e.target.value});
@@ -30,17 +38,35 @@ export default function TransactionForm( { fetchTransactions }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch('http://localhost:4000/transaction',{ //creating a new transaction
+    const res = editTransaction === {} ? await create() : await update();    
+    
+    if(res.ok) {
+      setForm(InitialForm)
+      fetchTransactions();
+    } 
+  }
+
+  async function create() {
+    const res = await fetch('http://localhost:4000/transaction',
+    { //creating a new transaction
       method: 'POST',
       body: JSON.stringify(form),
       headers: {
         'content-type': 'application/json',
       }
-    })
-    if(res.ok) {
-      setForm(InitialForm)
-      fetchTransactions();
-    } 
+    });
+    return res;
+  }
+  async function update() {
+    const res = await fetch(`http://localhost:4000/transaction/${editTransaction._id}`,
+    { 
+      method: 'PATCH',
+      body: JSON.stringify(form),
+      headers: {
+        'content-type': 'application/json',
+      }
+    });
+    return res;
   }
 
   return (
@@ -81,10 +107,20 @@ export default function TransactionForm( { fetchTransactions }) {
 
             />            
           </LocalizationProvider>
-          <Button type="submit" variant="contained">Submit</Button>
-        </form>
-        
-       
+          {
+            editTransaction !== {} &&
+            <Button type="submit" variant="contained">
+              Update
+            </Button>
+          }
+          {
+            editTransaction === {} &&
+            <Button type="submit" variant="contained">
+              Submit
+            </Button>
+          }
+          
+        </form>       
       </CardContent>      
     </Card>
   );
