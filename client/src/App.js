@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import AppBar from './components/AppBar';
 import TransactionForm from './components/TransactionForm';
+import TransactionsList from './components/TransactionsList';
+import { Container } from '@mui/material';
 
 
 
-function App() {
-
-  
+function App() {  
 
 const [transactions, setTransactions] = useState([]);
 
@@ -19,37 +19,16 @@ async function fetchTransactions() {
   const {data} = await res.json();
   setTransactions(data);
 }
-
-
-
-
   return (
     <div>
+      {/* COMPONENTS */}
       <AppBar />
 
-      <TransactionForm  fetchTransactions={fetchTransactions}/>
+      <Container>
+        <TransactionForm  fetchTransactions={fetchTransactions}/>
+        <TransactionsList transactions={transactions}/>
+      </Container>
 
-      
-      <br />
-
-      <section>
-        <table>
-          <thead>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Date</th>
-          </thead>
-          <tbody>
-            {transactions.map((trx) => (
-              <tr key={trx._id}>
-                <td>{trx.amount}</td>
-                <td>{trx.description}</td>
-                <td>{trx.date}</td>
-              </tr>
-            ))}            
-          </tbody>
-        </table>
-      </section>
     </div>
   );
 }
