@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import dayjs from 'dayjs';
 
 
-export default function TransactionsList({transactions, fetchTransactions}) {
+export default function TransactionsList({transactions, fetchTransactions, setEditTransaction}) {
 
   async function remove(_id) {
     if(!window.confirm('Are you sure you want to delete this transaction?')) return;
@@ -57,10 +57,18 @@ export default function TransactionsList({transactions, fetchTransactions}) {
               <TableCell align="right">{row.description}</TableCell>
               <TableCell align="center">{formatDate(row.date)}</TableCell>
               <TableCell align="center">
-                  <IconButton color="primary" component="label">
+                  <IconButton 
+                    color="primary" 
+                    component="label"
+                    onClick={() => setEditTransaction(row)}  //row = actual transaction. move data to App.js
+                  >
                     <EditSharpIcon />
                   </IconButton>     
-                  <IconButton color="warning" component="label" onClick={() => remove(row._id)}>
+                  <IconButton 
+                    color="warning" 
+                    component="label" 
+                    onClick={() => remove(row._id)}
+                  >
                     <DeleteSharpIcon />
                   </IconButton>        
               </TableCell>
