@@ -21,4 +21,10 @@ router.post('/',async (req, res)=>{
     res.json({message: "Success"});
 });
 
+    //delete request
+router.delete('/:id', async (req, res)=>{  //delete by id
+    await Transaction.findByIdAndDelete({_id: req.params.id});
+    res.json({message: "Success"});
+}); 
+
 module.exports = router;
