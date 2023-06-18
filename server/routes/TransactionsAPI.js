@@ -24,7 +24,13 @@ router.post('/',async (req, res)=>{
     //delete request
 router.delete('/:id', async (req, res)=>{  //delete by id
     await Transaction.findByIdAndDelete({_id: req.params.id});
-    res.json({message: "Success"});
+    res.json({message: "Successfully Deleted"});
 }); 
+
+    //update request [patch]
+router.patch('/:id', async (req, res)=>{ //update by id
+    await Transaction.findByIdAndUpdate({_id: req.params.id}, req.body); //({_id: req.params.id}, {$set: req.body})
+    res.json({message: "Update Successfully"});
+});
 
 module.exports = router;
