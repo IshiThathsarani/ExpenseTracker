@@ -10,10 +10,15 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -28,10 +33,15 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    });
+
+    const {token} = await res.json();
 
     if(res.ok){
-      console.log("done")
+      Cookies.set('token', token);
+      navigate('/');
+      console.log("Login successful")
+      console.log(token)
     }
   };
 
