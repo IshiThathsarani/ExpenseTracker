@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const connect = require('./database/mongodb'); //mongodb
 
 const TransactionsAPI = require('./routes/TransactionsAPI');
+const AuthAPI = require('./routes/AuthAPI');
 
 
 const PORT = 4000;
@@ -15,6 +16,9 @@ app.use(bodyParser.json());
 
 
 app.use('/transaction', TransactionsAPI);
+app.use('/auth', AuthAPI);
+
+
 connect() // connect to mongodb
 
 
