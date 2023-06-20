@@ -2,11 +2,13 @@ import App from './App';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Register from './pages/Register';
-import { createBrowserRouter, Navigate} from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
+import CheckAuth from './utils/CheckAuth';
+import Guest from './utils/Guest';
 
-const Cookies = require('js-cookie');
+// const Cookies = require('js-cookie');
 
-const token = Cookies.get('token');
+// const token = Cookies.get('token');
 
 export default createBrowserRouter([
     {
@@ -15,15 +17,26 @@ export default createBrowserRouter([
       children:[   
       {
         path: "/",
-        element: token? <Home />: <Navigate to="/login"  replace={true}/>,
+        element: 
+        <CheckAuth>
+            <Home />
+        </CheckAuth>,
+        // element: token? <Home />: <Navigate to="/login"  replace={true}/>,
       },
       {
         path: "/login",
-        element: <Login />,
+        element: 
+        <Guest> 
+            <Login />
+        </Guest>,
       },
       {
         path: "/register",
-        element: <Register />,
+        element: 
+        <Guest>
+            <Register />
+        </Guest>
+        
       },
     ]
     },
