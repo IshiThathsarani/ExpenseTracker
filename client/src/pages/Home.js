@@ -4,6 +4,7 @@ import TransactionForm from '../components/TransactionForm';
 import TransactionsList from '../components/TransactionsList';
 import { Container } from '@mui/material';
 
+
 function Home() {
 
     const [transactions, setTransactions] = useState([]);
@@ -14,9 +15,14 @@ function Home() {
     }, []);
 
     async function fetchTransactions() {
-        const res = await fetch('http://localhost:4000/transaction') //fetching data from db. no method == get
-        const {data} = await res.json();
-        setTransactions(data);
+        try{
+            
+            const res = await fetch('http://localhost:4000/transaction');
+            const {data} = await res.json();
+            setTransactions(data);
+        } catch (error) {
+            console.error(error);
+        }
     }
     return (
         <Container>

@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+// const passport = require('passport');
+// const passportConfig = require('./config/passport'); //passport config
 
 const connect = require('./database/mongodb'); //mongodb
 
@@ -13,7 +15,8 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
+// app.use(passport.initialize()); //passport middleware
+// passportConfig(passport); //passport config
 
 app.use('/transaction', TransactionsAPI);
 app.use('/auth', AuthAPI);

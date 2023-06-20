@@ -1,10 +1,13 @@
 const Router = require('express')
 const Transaction = require('../models/transaction');
+// const passport = require('passport');
 
 
 const router = Router();
 
-router.get('/', async (req, res)=>{
+router.get('/', 
+    // passport.authenticate('jwt', {session: false}), //authenticate
+    async (req, res)=>{
     const transaction = await Transaction.find({}).sort({createdAt: -1}); //sort to new to old
     res.json({data: transaction});
 });
