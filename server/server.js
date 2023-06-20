@@ -8,6 +8,7 @@ const connect = require('./database/mongodb'); //mongodb
 
 const TransactionsAPI = require('./routes/TransactionsAPI');
 const AuthAPI = require('./routes/AuthAPI');
+// const UserAPI = require('./routes/UserAPI');
 
 
 const PORT = 4000;
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 
 app.use('/transaction', TransactionsAPI);
 app.use('/auth', AuthAPI);
+// app.use('/user', UserAPI);
 
 
 connect() // connect to mongodb

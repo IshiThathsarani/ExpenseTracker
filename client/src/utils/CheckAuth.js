@@ -6,6 +6,9 @@ const Cookies = require('js-cookie');
 
 
 export default function CheckAuth({children}) {
+
+
+    
     const token = Cookies.get('token');
   return token? children: <Navigate to="/login"  replace={true}/> ;
 }
