@@ -26,6 +26,7 @@ function Home() {
     }
     return (
         <Container>
+            
             <TransactionForm  
             fetchTransactions={fetchTransactions}
             editTransaction={editTransaction}

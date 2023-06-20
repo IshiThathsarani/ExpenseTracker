@@ -4,6 +4,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const router = Router();
+const categories =[
+    {label: 'Food', icon:'user'},
+    {label: 'Shopping', icon:'user'},
+    {label: 'Travel', icon:'user'},
+    {label: 'Transport', icon:'user'},
+    {label: 'Other', icon:'user'},
+  ]
 
 router.post('/register', async (req, res)=>{  //new user
     
@@ -23,7 +30,13 @@ router.post('/register', async (req, res)=>{  //new user
     const hashedPassword = await bcrypt.hashSync(password, salt);
     console.log(hashedPassword)
 
-    const user = await User({email,password: hashedPassword,firstName,lastName}); //create a new user
+    const user = await User({
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        categories
+    }); //create a new user
     const savedUser = user.save()
     console.log(savedUser);
 

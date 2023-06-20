@@ -27,7 +27,7 @@ export default createBrowserRouter([
         path: "/login",
         element: 
         <Guest> 
-            <Login />
+            <Login />            
         </Guest>,
       },
       {
@@ -38,10 +38,9 @@ export default createBrowserRouter([
         </Guest>
         
       },
+      
     ]
+    
     },
-    // {
-    //   path: "/login",
-    //   element: <Login />,
-    // },
+    
   ]);

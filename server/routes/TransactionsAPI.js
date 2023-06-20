@@ -14,11 +14,12 @@ router.get('/',
 
     //post request
 router.post('/',async (req, res)=>{
-    const {amount, description, date} = req.body;
+    const {amount, description, date, category} = req.body;
     const transaction = new Transaction({
         amount,
         description,
-        date   //since the key and variable is same no need to repeat like amount:amount...
+        date ,
+        category   //since the key and variable is same no need to repeat like amount:amount...
     });
     await transaction.save(); //save to db
     res.json({message: "Success"});

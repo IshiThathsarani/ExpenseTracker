@@ -11,23 +11,27 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import IconButton from '@mui/material/IconButton';
 import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
 
 
 export default function TransactionsList({transactions, fetchTransactions, setEditTransaction}) {
 
-  async function remove(_id) {
+  const token = Cookies.get('token');
+
+  const formatDate = (date) => dayjs(date).format('DD MMM YYYY');
+
+  const remove = async (_id) => {
     if(!window.confirm('Are you sure you want to delete this transaction?')) return;
     const res = await fetch(`http://localhost:4000/transaction/${_id}`,{
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
     });
     if(res.ok){
       fetchTransactions();
       window.alert('Transaction deleted successfully');
     }
-  }
-
-  function formatDate(date){
-    return dayjs(date).format('DD MMM YYYY');
   }
 
   return (
@@ -41,6 +45,7 @@ export default function TransactionsList({transactions, fetchTransactions, setEd
           <TableRow>
             <TableCell align="center">Amount</TableCell>
             <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Category</TableCell>
             <TableCell align="center">Date</TableCell>
             <TableCell align="center">Action</TableCell>
           </TableRow>
@@ -55,6 +60,7 @@ export default function TransactionsList({transactions, fetchTransactions, setEd
                 {row.amount}
               </TableCell>
               <TableCell align="right">{row.description}</TableCell>
+              <TableCell align="right">{row.category}NA</TableCell>
               <TableCell align="center">{formatDate(row.date)}</TableCell>
               <TableCell align="center">
                   <IconButton 
